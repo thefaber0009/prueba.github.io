@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - El Rey de los Buñuelos</title>
+    <link rel="stylesheet" href="../styles/admin.css">
+</head>
+<body>
+    <div id="adminApp">
+        <header class="admin-header">
+            <div class="container">
+                <h1>🧄 Dashboard - El Rey de los Buñuelos</h1>
+                <p>Panel administrativo de pedidos</p>
+                <div class="header-actions">
+                    <button id="refreshBtn" class="btn-secondary">🔄 Actualizar</button>
+                    <button id="backBtn" class="btn-secondary" onclick="window.location.href='/'">← Volver al inicio</button>
+                </div>
+            </div>
+        </header>
+
+        <main class="admin-main">
+            <div class="container">
+                <!-- Stats Cards -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">👥</div>
+                        <div class="stat-content">
+                            <p class="stat-label">Pendientes</p>
+                            <p class="stat-value" id="pendingCount">0</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">⏰</div>
+                        <div class="stat-content">
+                            <p class="stat-label">En Preparación</p>
+                            <p class="stat-value" id="preparingCount">0</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">✅</div>
+                        <div class="stat-content">
+                            <p class="stat-label">Listos</p>
+                            <p class="stat-value" id="readyCount">0</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">💰</div>
+                        <div class="stat-content">
+                            <p class="stat-label">Total Ventas</p>
+                            <p class="stat-value" id="totalRevenue">$0</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Filters -->
+                <div class="filters-card">
+                    <div class="filters">
+                        <label for="statusFilter">Estado:</label>
+                        <select id="statusFilter">
+                            <option value="all">Todos los Estados</option>
+                            <option value="pending">Pendientes</option>
+                            <option value="preparing">Preparando</option>
+                            <option value="ready">Listos</option>
+                            <option value="delivered">Entregados</option>
+                        </select>
+                        
+                        <label for="typeFilter">Tipo:</label>
+                        <select id="typeFilter">
+                            <option value="all">Todos los Tipos</option>
+                            <option value="physical">Físico</option>
+                            <option value="delivery">Domicilio</option>
+                        </select>
+                        
+                        <label for="queueFilter">Cola:</label>
+                        <select id="queueFilter">
+                            <option value="all">Todas las Colas</option>
+                            <option value="tradicionales">Tradicionales</option>
+                            <option value="especiales">Especiales</option>
+                            <option value="mixtos">Mixtos</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Orders List -->
+                <div id="ordersList" class="orders-list">
+                    <div class="loading">Cargando pedidos...</div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../scripts/admin.js"></script>
+</body>
+</html>

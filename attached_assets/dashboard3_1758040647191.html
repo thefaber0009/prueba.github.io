@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - El Rey de los Buñuelos</title>
+  <link rel="stylesheet" href="css/dashboard3.css">
+</head>
+<body>
+  <div class="header">
+    <h1>🧄 Dashboard Administrativo</h1>
+    <div class="user-info">
+      <span>Bienvenido, <span id="adminName">Admin</span></span>
+      <button class="notification-toggle" id="notificationToggle">
+        🔔 Notificaciones: ON
+      </button>
+      <button class="logout-btn" onclick="logout()">Cerrar Sesión</button>
+    </div>
+  </div>
+
+  <div class="dashboard">
+    <!-- Estadísticas -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <h3>Pedidos Pendientes</h3>
+        <div class="stat-number" id="statPending">0</div>
+      </div>
+      <div class="stat-card">
+        <h3>En Preparación</h3>
+        <div class="stat-number" id="statPreparing">0</div>
+      </div>
+      <div class="stat-card">
+        <h3>Listos</h3>
+        <div class="stat-number" id="statReady">0</div>
+      </div>
+      <div class="stat-card">
+        <h3>Total del Día</h3>
+        <div class="stat-number" id="statTotal">$0</div>
+      </div>
+    </div>
+
+    <!-- Navegación -->
+    <div class="nav-tabs">
+      <button class="nav-tab active" onclick="showSection('orders')">📋 Pedidos</button>
+      <button class="nav-tab" onclick="showSection('queues')">🎫 Gestión de Turnos</button>
+      <button class="nav-tab" onclick="showSection('qr-generator')">📱 Generar QR</button>
+      <button class="nav-tab" onclick="showSection('reports')">📊 Reportes</button>
+    </div>
+
+    <!-- Sección Pedidos -->
+    <div id="orders-section" class="content-section active">
+      <div class="filters">
+        <select id="statusFilter" class="filter-select" onchange="filterOrders()">
+          <option value="all">Todos los Estados</option>
+          <option value="pending">Pendientes</option>
+          <option value="preparing">En Preparación</option>
+          <option value="ready">Listos</option>
+          <option value="delivered">Entregados</option>
+        </select>
+        <select id="queueFilter" class="filter-select" onchange="filterOrders()">
+          <option value="all">Todas las Filas</option>
+          <option value="tradicional">Tradicionales</option>
+          <option value="especiales">Especiales</option>
+          <option value="mixto">Mixtos</option>
+        </select>
+        <button class="btn btn-primary" onclick="refreshOrders()">🔄 Actualizar</button>
+        <button class="btn btn-success" onclick="playTestSound()">🔊 Probar Sonido</button>
+      </div>
+
+      <div id="ordersContainer">
+        <div class="orders-grid" id="ordersGrid">
+          <div class="empty-state">
+            <div class="icon">📋</div>
+            <h3>No hay pedidos</h3>
+            <p>Los nuevos pedidos aparecerán aquí automáticamente</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sección Gestión de Turnos -->
+    <div id="queues-section" class="content-section">
+      <h2>Gestión de Turnos por Fila</h2>
+      <div class="orders-grid">
+        <div class="order-card">
+          <h4>🧄 Fila Tradicional</h4>
+          <p>Buñuelos clásicos, con azúcar y mozarella</p>
+          <div class="order-total">
+            <span>Contador actual:</span>
+            <div class="stat-number" id="tradicionalCounter" style="font-size: 1.5rem;">0</div>
+          </div>
+          <div class="order-actions">
+            <button class="action-btn btn-danger" onclick="adjustQueue('tradicional', -1)">-1</button>
+            <button class="action-btn btn-success" onclick="adjustQueue('tradicional', 1)">+1</button>
+            <button class="btn btn-warning" onclick="resetQueue('tradicional')" style="margin-left: 10px;">Reset</button>
+          </div>
+        </div>
+
+        <div class="order-card">
+          <h4>⭐ Fila Especiales</h4>
+          <p>Buñuelos hawaianos, rancheros, mermelada, bocadillo, arequipe</p>
+          <div class="order-total">
+            <span>Contador actual:</span>
+            <div class="stat-number" id="especialesCounter" style="font-size: 1.5rem;">0</div>
+          </div>
+          <div class="order-actions">
+            <button class="action-btn btn-danger" onclick="adjustQueue('especiales', -1)">-1</button>
+            <button class="action-btn btn-success" onclick="adjustQueue('especiales', 1)">+1</button>
+            <button class="btn btn-warning" onclick="resetQueue('especiales')" style="margin-left: 10px;">Reset</button>
+          </div>
+        </div>
+      </div>
+      <div style="text-align: center; margin-top: 20px;">
+        <button class="btn btn-danger" onclick="resetAllQueues()">⚠️ Resetear Todas las Filas</button>
+      </div>
+    </div>
+
+    <!-- Sección Generador QR -->
+    <div id="qr-section" class="content-section">
+      <h2>Generar Código QR para Clientes</h2>
+      <div class="order-card">
+        <label for="qrUrl">URL del Sistema de Pedidos:</label>
+        <input type="text" id="qrUrl" readonly style="width: 100%; padding: 10px; margin: 10px 0; border: 2px solid #ddd; border-radius: 10px;">
+        <button class="btn btn-primary" onclick="generateQRCode()" style="width: 100%; margin: 10px 0;">📱 Generar Código QR</button>
+        <div id="qrContainer" style="text-align: center; margin: 20px 0; display: none;">
+          <div id="qrcode"></div>
+          <div style="margin-top: 15px;">
+            <button class="btn btn-success" onclick="downloadQR()">💾 Descargar QR</button>
+            <button class="btn btn-warning" onclick="printQR()">🖨️ Imprimir QR</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sección Reportes -->
+    <div id="reports-section" class="content-section">
+      <h2>📊 Reportes del Día</h2>
+      <div id="dailyReport">
+        <div class="empty-state">
+          <div class="icon">📊</div>
+          <h3>Generar Reporte</h3>
+          <p>Haz clic en "Generar Reporte" para ver las estadísticas del día</p>
+        </div>
+      </div>
+      <div style="text-align: center; margin-top: 20px;">
+        <button class="btn btn-primary" onclick="generateReport()">📄 Generar Reporte</button>
+        <button class="btn btn-success" onclick="exportReport()">📥 Exportar Reporte</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/dashboard3.js"></script>
+</body>
+</html>

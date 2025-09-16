@@ -1,0 +1,63 @@
+[
+    {
+        "id": "68c9c2724fb7c",
+        "orderCode": "PED3641",
+        "customerName": "Test Customer",
+        "turnNumber": "T026",
+        "orderType": "physical",
+        "status": "pending",
+        "items": [
+            {
+                "id": "bunuelo-clasico",
+                "name": "Bu\u00f1uelo Cl\u00e1sico",
+                "price": 1500,
+                "quantity": 2,
+                "category": "traditional"
+            },
+            {
+                "id": "bunuelo-queso",
+                "name": "Bu\u00f1uelo de Queso Mozarella",
+                "price": 2500,
+                "quantity": 1,
+                "category": "traditional"
+            }
+        ],
+        "total": 5500,
+        "orderDate": "2025-09-16T20:02:58+00:00",
+        "deliveryData": null,
+        "queueType": "tradicionales"
+    },
+    {
+        "id": "68c9c28f0a6bb",
+        "orderCode": "PED0062",
+        "customerName": "Final Test",
+        "turnNumber": "T848",
+        "orderType": "delivery",
+        "status": "pending",
+        "items": [
+            {
+                "id": "bunuelo-hawaiano",
+                "name": "Bu\u00f1uelo Hawaiano",
+                "price": 3000,
+                "quantity": 1,
+                "category": "special"
+            },
+            {
+                "id": "bunuelo-azucar",
+                "name": "Bu\u00f1uelo con Az\u00facar",
+                "price": 2000,
+                "quantity": 2,
+                "category": "traditional"
+            }
+        ],
+        "total": 7000,
+        "orderDate": "2025-09-16T20:03:27+00:00",
+        "deliveryData": {
+            "phone": "300-123-4567",
+            "address": "Calle 123 #45-67",
+            "neighborhood": "Centro",
+            "paymentMethod": "efectivo"
+        },
+        "queueType": "mixtos"
+    }
+]

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El Rey de los Buñuelos</title>
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Order Type Selection -->
+        <div id="orderTypeView" class="view active">
+            <div class="hero">
+                <h1>🧄 El Rey de los Buñuelos</h1>
+                <p>Los mejores buñuelos de la ciudad</p>
+            </div>
+            
+            <div class="order-types">
+                <div class="order-card" onclick="selectOrderType('physical')">
+                    <div class="icon">🏪</div>
+                    <h2>Pedido Físico</h2>
+                    <p>Visita nuestro local y disfruta de buñuelos recién hechos</p>
+                    <ul>
+                        <li>• Entrega inmediata</li>
+                        <li>• Buñuelos recién hechos</li>
+                        <li>• Sin costo de envío</li>
+                    </ul>
+                    <button class="btn-primary">Seleccionar Pedido Físico</button>
+                </div>
+                
+                <div class="order-card" onclick="selectOrderType('delivery')">
+                    <div class="icon">🚚</div>
+                    <h2>Pedido a Domicilio</h2>
+                    <p>Recibe tus buñuelos favoritos directamente en tu hogar</p>
+                    <ul>
+                        <li>• Entrega a domicilio</li>
+                        <li>• Empaque especial</li>
+                        <li>• Seguimiento del pedido</li>
+                    </ul>
+                    <button class="btn-primary">Seleccionar Domicilio</button>
+                </div>
+            </div>
+            
+            <div class="admin-access">
+                <button onclick="showAdminLogin()" class="btn-secondary">Admin</button>
+            </div>
+        </div>
+        
+        <!-- Customer Info View -->
+        <div id="customerInfoView" class="view">
+            <button onclick="goBack()" class="btn-back">← Cambiar tipo de pedido</button>
+            <div class="form-container">
+                <h1>Información del Cliente</h1>
+                <p id="orderTypeText"></p>
+                <form onsubmit="submitCustomerInfo(event)">
+                    <label for="customerName">Nombre completo *</label>
+                    <input type="text" id="customerName" required placeholder="Ingresa tu nombre completo">
+                    <button type="submit" class="btn-primary">Continuar al Menú</button>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Menu View -->
+        <div id="menuView" class="view">
+            <div class="menu-header">
+                <button onclick="goBack()" class="btn-back">← Atrás</button>
+                <div class="welcome">
+                    <h1>Hola <span id="customerNameDisplay"></span>!</h1>
+                    <p>Elige tus buñuelos favoritos</p>
+                </div>
+            </div>
+            
+            <div class="menu-container">
+                <div class="menu-sections">
+                    <div class="menu-section">
+                        <h2>🧄 Buñuelos Tradicionales</h2>
+                        <div id="traditionalMenu" class="menu-items"></div>
+                    </div>
+                    
+                    <div class="menu-section">
+                        <h2>⭐ Buñuelos Especiales</h2>
+                        <div id="specialMenu" class="menu-items"></div>
+                    </div>
+                </div>
+                
+                <div class="order-summary">
+                    <h3>Resumen del Pedido</h3>
+                    <div id="orderItems"></div>
+                    <div id="orderTotal"></div>
+                    <button id="continueBtn" onclick="continueToDelivery()" class="btn-primary" style="display:none;">
+                        Continuar
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Delivery Form View -->
+        <div id="deliveryView" class="view">
+            <button onclick="goBack()" class="btn-back">← Volver al menú</button>
+            <div class="form-container">
+                <h1>Información de Entrega</h1>
+                <p>Complete los datos para su pedido a domicilio</p>
+                <form onsubmit="submitDeliveryForm(event)">
+                    <label for="phone">Número de teléfono *</label>
+                    <input type="tel" id="phone" required placeholder="Ej: 300 123 4567">
+                    
+                    <label for="address">Dirección completa *</label>
+                    <input type="text" id="address" required placeholder="Calle, carrera, número">
+                    
+                    <label for="neighborhood">Barrio *</label>
+                    <input type="text" id="neighborhood" required placeholder="Nombre del barrio">
+                    
+                    <label for="paymentMethod">Método de pago</label>
+                    <select id="paymentMethod" required>
+                        <option value="">Seleccione método de pago</option>
+                        <option value="efectivo">Efectivo</option>
+                        <option value="tarjeta">Tarjeta</option>
+                        <option value="transferencia">Transferencia</option>
+                    </select>
+                    
+                    <button type="submit" class="btn-primary">Confirmar Pedido</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <script src="scripts/app.js"></script>
+</body>
+</html>
